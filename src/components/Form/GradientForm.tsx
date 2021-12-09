@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { IGradient } from '../../models/IGradient';
 import style from './Form.module.css';
 
 type PropsType = {
@@ -9,11 +10,6 @@ type PropsType = {
   firstHex?: string;
   secondHex?: string;
   isEditMode: boolean;
-};
-
-type FormType = {
-  firstHex: string;
-  secondHex: string;
 };
 
 const schema = yup.object({
@@ -37,11 +33,11 @@ export const GradientForm: React.FC<PropsType> = ({
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isDirty, isValid },
-  } = useForm<FormType>({
+  } = useForm<IGradient>({
     resolver: yupResolver(schema),
     mode: 'onBlur',
   });
-  const onSubmit: SubmitHandler<FormType> = (data) => {
+  const onSubmit: SubmitHandler<IGradient> = (data) => {
     submitAction(data.firstHex, data.secondHex);
   };
   return (

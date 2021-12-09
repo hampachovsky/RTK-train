@@ -1,7 +1,9 @@
 import React from 'react';
 import { GradientCard } from '../components/GradientCard';
+import { useAppSelector } from '../hooks/redux';
 
 export const Home: React.FC = () => {
+  const gradients = useAppSelector((state) => state.gradientReducer.gradients);
   return (
     <>
       <h1 style={{ textAlign: 'center' }}>Your gradient list</h1>
@@ -14,11 +16,11 @@ export const Home: React.FC = () => {
           flexWrap: 'wrap',
         }}
       >
-        <GradientCard id={1} firstHex='#a85caa' secondHex='#8cb8e9' />
-        <GradientCard id={2} firstHex='#a85caa' secondHex='#8cb8e9' />
-        <GradientCard id={3} firstHex='#a85caa' secondHex='#8cb8e9' />
-        <GradientCard id={4} firstHex='#a85caa' secondHex='#8cb8e9' />
-        <GradientCard id={5} firstHex='#8fffff' secondHex='#acb8e9' />
+        {gradients.map((it) => {
+          return (
+            <GradientCard key={it.id} id={it.id} firstHex={it.firstHex} secondHex={it.secondHex} />
+          );
+        })}
       </div>
     </>
   );

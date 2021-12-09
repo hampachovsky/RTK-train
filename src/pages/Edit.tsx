@@ -1,13 +1,20 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { GradientForm } from '../components/Form/GradientForm';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { gradientSlice, selectGradient } from '../store/slices/GradientSlice';
 
 export const Edit: React.FC = () => {
   let params = useParams();
   const navigate = useNavigate();
-  console.log(params.id);
+  const dispatch = useAppDispatch();
+  const { editItem } = gradientSlice.actions;
+  const tempType = params.id as string;
+  const id = +tempType;
+  const gradient = useAppSelector((state) => selectGradient(state, id));
+
   const onEdit = (firstHex: string, secondHex: string) => {
-    console.log(firstHex);
+    dispatch(editItem({ id, firstHex, secondHex }));
     navigate('/');
   };
   return (
@@ -16,8 +23,8 @@ export const Edit: React.FC = () => {
       <GradientForm
         submitAction={onEdit}
         isEditMode={true}
-        firstHex='#a85caa'
-        secondHex='#8cb8e9'
+        firstHex={gradient.firstHex}
+        secondHex={gradient.secondHex}
       />
     </>
   );
