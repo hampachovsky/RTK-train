@@ -13,10 +13,12 @@ export const GradientCard: React.FC<PropsType> = ({ id, firstHex, secondHex }) =
   return (
     <div
       className={style.card}
+      data-testid='gradient-card'
       style={{ background: `linear-gradient(to right, ${firstHex}, ${secondHex})` }}
     >
       <p className={style.cardDelete}>
         <button
+          data-testid='delete-button'
           onClick={() => {
             dispatch(deleteItem(id));
           }}
@@ -30,7 +32,7 @@ export const GradientCard: React.FC<PropsType> = ({ id, firstHex, secondHex }) =
         <h2>{secondHex}</h2>
       </div>
       <h2 className={style.cardEdit}>
-        <Link className={style.cardLink} to={`edit/${id}`}>
+        <Link data-testid='edit-link' className={style.cardLink} to={`edit/${id}`}>
           Edit
         </Link>
       </h2>

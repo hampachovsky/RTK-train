@@ -19,7 +19,9 @@ export const Edit: React.FC = () => {
   };
   return (
     <>
-      <h1 style={{ textAlign: 'center' }}>Edit Gradient</h1>
+      <h1 data-testid='edit-page' style={{ textAlign: 'center' }}>
+        Edit Gradient
+      </h1>
       <GradientForm
         submitAction={onEdit}
         isEditMode={true}

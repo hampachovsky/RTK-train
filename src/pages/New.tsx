@@ -15,7 +15,9 @@ export const New: React.FC = () => {
   };
   return (
     <>
-      <h1 style={{ textAlign: 'center' }}>Add new gradient</h1>
+      <h1 data-testid='new-page' style={{ textAlign: 'center' }}>
+        Add new gradient
+      </h1>
       <GradientForm submitAction={onAdd} isEditMode={false} />
     </>
   );

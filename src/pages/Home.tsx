@@ -6,7 +6,9 @@ export const Home: React.FC = () => {
   const gradients = useAppSelector((state) => state.gradientReducer.gradients);
   return (
     <>
-      <h1 style={{ textAlign: 'center' }}>Your gradient list</h1>
+      <h1 data-testid='home-page' style={{ textAlign: 'center' }}>
+        Your gradient list
+      </h1>
       <div
         style={{
           display: 'flex',

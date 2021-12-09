@@ -1,6 +1,6 @@
-import { RootState } from './../store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IGradient } from '../../models/IGradient';
+import { RootState } from './../store';
 
 interface GradientState {
   gradients: IGradient[];

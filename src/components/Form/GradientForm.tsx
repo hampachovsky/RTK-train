@@ -15,7 +15,7 @@ type PropsType = {
 const schema = yup.object({
   firstHex: yup
     .string()
-    .matches(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i, 'Invalid hex format, ')
+    .matches(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i, 'Invalid hex format')
     .required('Field is required'),
   secondHex: yup
     .string()
@@ -35,7 +35,7 @@ export const GradientForm: React.FC<PropsType> = ({
     formState: { errors, isSubmitting, isDirty, isValid },
   } = useForm<IGradient>({
     resolver: yupResolver(schema),
-    mode: 'onBlur',
+    mode: 'onChange',
   });
   const onSubmit: SubmitHandler<IGradient> = (data) => {
     submitAction(data.firstHex, data.secondHex);
@@ -46,24 +46,31 @@ export const GradientForm: React.FC<PropsType> = ({
         <div>
           <h4 className={style.fieldLabel}>First hex value</h4>
           <input
+            data-testid='first-hex-input'
             defaultValue={firstHex}
             className={style.field}
             placeholder='#FFFFFF'
             {...register('firstHex')}
           />
-          <p className={style.errorMessage}>{errors.firstHex?.message}</p>
+          <p role='alert' className={style.errorMessage}>
+            {errors.firstHex?.message}
+          </p>
         </div>
         <div>
           <h4 className={style.fieldLabel}>Second hex value</h4>
           <input
+            data-testid='second-hex-input'
             defaultValue={secondHex}
             placeholder='#FFFFFF'
             className={style.field}
             {...register('secondHex')}
           />
-          <p className={style.errorMessage}>{errors.secondHex?.message}</p>
+          <p role='alert' className={style.errorMessage}>
+            {errors.secondHex?.message}
+          </p>
         </div>
         <button
+          data-testid='submit-button'
           disabled={!isDirty || !isValid || isSubmitting}
           className={style.submitBtn}
           type='submit'
