@@ -30,7 +30,7 @@ describe('Gradient card', () => {
       `background: linear-gradient(to right, ${mockGradient.firstHex}, ${mockGradient.secondHex}`,
     );
   });
-  test('Delete card', () => {
+  test('Delete card', async () => {
     store.dispatch(addItem(mockGradient));
     let state = store.getState().gradientReducer;
     const initialGradientCount = state.gradients.length;
@@ -49,5 +49,23 @@ describe('Gradient card', () => {
     userEvent.click(screen.getByTestId('delete-button'));
     state = store.getState().gradientReducer;
     expect(state.gradients.length).toBeLessThan(initialGradientCount);
+  });
+  test('Gradient card list should be rendered', async () => {
+    store.dispatch(addItem({ id: 15, firstHex: '#555', secondHex: '#888' }));
+    store.dispatch(addItem({ id: 20, firstHex: '#75F', secondHex: '#A88' }));
+    store.dispatch(addItem({ id: 25, firstHex: '#AAA', secondHex: '#FFF' }));
+    const gradients = store.getState().gradientReducer.gradients;
+    const initialGradientCount = gradients.length;
+    render(
+      <Provider store={store}>
+        {gradients.map((it) => {
+          return (
+            <GradientCard key={it.id} id={it.id} firstHex={it.firstHex} secondHex={it.secondHex} />
+          );
+        })}
+      </Provider>,
+      { wrapper: MemoryRouter },
+    );
+    expect(await screen.findAllByTestId('gradient-card')).toHaveLength(initialGradientCount);
   });
 });
